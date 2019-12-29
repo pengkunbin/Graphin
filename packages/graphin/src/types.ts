@@ -120,6 +120,8 @@ export interface Node {
     id: string;
     /** 节点类型 */
     shape?: string;
+    /** 节点文本 */
+    label?: string;
     /** 节点样式 */
     style?: Partial<NodeStyle>;
     /** 节点位置信息 */
@@ -230,7 +232,7 @@ export interface ExtendNodeShape {
     name: string;
     render: NodeShapeFunction;
 }
-export interface ExendLayout {
+export interface ExtendLayout {
     /** 布局名称，唯一标示 */
     name: string;
     /** 布局展示名称 */
@@ -286,7 +288,7 @@ export interface GraphinProps {
     layout?: Layout;
 
     extend?: {
-        layout?: (graphin: Graphin, prevProps: GraphinProps) => ExendLayout[];
+        layout?: (graphin: Graphin, prevProps: GraphinProps) => ExtendLayout[];
         nodeShape?: () => ExtendNodeShape[];
         marker?: () => ExtendMarker[];
         icon?: () => ExtendIcon[];

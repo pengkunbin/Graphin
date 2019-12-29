@@ -1,5 +1,5 @@
 import dataChecking from './dataChecking';
-import { GraphinProps, Data, ForceSimulation, ExendLayout } from '../../types';
+import { GraphinProps, Data, ForceSimulation, ExtendLayout } from '../../types';
 import Graphin from '../../Graphin';
 import defaultLayouts, { LayoutOption } from './defaultLayouts';
 
@@ -8,7 +8,7 @@ interface LayoutParams {
     prevProps?: GraphinProps;
 }
 
-const layoutInfo = (layouts: ExendLayout[]) => {
+const layoutInfo = (layouts: ExtendLayout[]) => {
     return layouts.map(item => {
         const { desc, name, icon } = item;
         return {
@@ -40,6 +40,12 @@ const layoutController = (
     // 数据的校验
     const data = dataChecking(PropsData);
 
+    // 重置forceSimulation
+
+    if (forceSimulation) {
+        forceSimulation.stop();
+    }
+
     // 注册 Layout
     const { extend = {} } = props;
     const extendLayout = extend.layout || noopLayout;
@@ -67,11 +73,6 @@ const layoutController = (
             return { data };
         }
         layout = { name: 'concentric' };
-    }
-
-    // 重置forceSimulation
-    if (forceSimulation) {
-        forceSimulation.stop();
     }
 
     // 设置布局的 options参数
